@@ -1,0 +1,18 @@
+name: Code style
+on:
+  push:
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: "Setup python"
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - run: pip install flake8 isort black
+      - run: flake8 flake8_global_variables
+      - run: isort flake8_global_variables --check --diff
+      - run: black flake8_global_variables --check --diff
